@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas-画板</title>
+    <link rel="stylesheet" href="style.min.css">
+    <link rel="stylesheet" href="font/iconfont.min.css">
+</head>
+<body>
+<div id="tools">
+    <span class="can-btn iconfont icon-fillcolor" data-control="fillColor">
+        <span class="content">red</span>
+    </span>
+    <span class="can-btn iconfont icon-strokecolor" data-control="strokeColor">
+        <span class="content">blue</span>
+    </span>
+    <span class="can-btn iconfont icon-line" data-control="lineWidth">
+        <span class="content"></span>
+    </span>
+    <span class="can-btn iconfont" data-control="length">50
+        <span class="content">100</span>
+    </span>
+    <span class="can-btn iconfont icon-five" data-control="number">
+        <span class="content">6</span>
+    </span>
+</div>
+<div id="main">
+    <canvas id="canvas" width="600" height="600"></canvas>
+</div>
+<script src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
+<script src="draw.js"></script>
+</body>
+</html>
+

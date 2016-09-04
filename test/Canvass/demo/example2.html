@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用Canvas画正多角星</title>
+</head>
+<body>
+<canvas id="canvas" width="600" height="600"></canvas>
+<script type="text/javascript">
+    function Star(id,n,lineWidth,length,fillStyle){
+        this.n=n||10;
+        this.id=id||'canvas';
+        this.arc1=-Math.PI+Math.PI*(this.n-2)/this.n;
+        this.arc2=-Math.PI*(this.n-4)/this.n+Math.PI;
+        this.lineWidth=lineWidth||2;
+        this.length=length||50;
+        this.fillStyle=fillStyle||"red";
+    }
+    Star.prototype={
+        draw:function(){
+            var canvas=document.getElementById(this.id);
+            var ctx=canvas.getContext("2d");
+            ctx.save();
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            ctx.fillRect(0,0,canvas.width,canvas.height);
+            ctx.fillStyle=this.fillStyle;
+            ctx.strokeStyle="yellow";
+            ctx.beginPath();
+            ctx.translate(300,300);
+            ctx.moveTo(0,0);
+            for(var i=0; i<this.n; i++){
+                ctx.lineTo(this.length,0);
+                ctx.translate(this.length,0);
+                ctx.rotate(this.arc2);
+                ctx.lineTo(this.length,0);
+                ctx.translate(this.length,0);
+                ctx.rotate(this.arc1)
+            }
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+            console.log(this.arc2/Math.PI);
+            console.log(this.arc1/Math.PI);
+        }
+    };
+    var star2=new Star();
+    star2.draw();
+</script>
+</body>
+</html>

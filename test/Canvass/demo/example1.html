@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas-你想不到的图形</title>
+</head>
+<body>
+<canvas id="canvas" width="300" height="300"></canvas>
+<button onclick="draw1()">图形一</button>
+<button onclick="draw2()">图形二</button>
+<button onclick="draw3()">图形三</button>
+<script type="text/javascript">
+    window.onload = function () {
+        draw1();
+    };
+    function draw1() {
+        var ctx = document.getElementById('canvas').getContext("2d");
+        ctx.clearRect(0 , 0 , 300 , 300);
+        ctx.fillRect(0 , 0 , 300 , 300);
+        for (var i = 0; i < 3; i++) {
+            for (var j = 0; j < 3; j++) {
+                ctx.save();
+                ctx.strokeStyle = "#9CFF00";
+                ctx.translate(50 + j * 100 , 50 + i * 100);
+                drawSpirograph(ctx , 20 * (j + 2) / (j + 1) , -8 * (i + 3) / (i + 1) , 10);
+                ctx.restore();
+            }
+        }
+    }
+    function drawSpirograph(ctx , R , r , O) {
+        var x1 = R - O;
+        var y1 = 0;
+        var i = 1;
+        ctx.beginPath();
+        ctx.moveTo(x1 , y1);
+        do {
+            if (i > 20000) break;
+            var x2 = (R + r) * Math.cos(i * Math.PI / 72) - (r + O) * Math.cos(((R + r) / r) * (i * Math.PI / 72));
+            var y2 = (R + r) * Math.sin(i * Math.PI / 72) - (r + O) * Math.sin(((R + r) / r) * (i * Math.PI / 72));
+            ctx.lineTo(x2 , y2);
+            x1 = x2;
+            y1 = y2;
+            i++;
+        } while (x2 != R - O && y2 != 0);
+        ctx.stroke();
+    }
+    function draw2() {
+        var ctx = document.getElementById('canvas').getContext('2d');
+        ctx.save();
+        ctx.clearRect(0 , 0 , 300 , 300);
+        ctx.translate(75 , 75);
+        for (var i = 0; i < 6; i++) {
+            ctx.save();
+            ctx.fillStyle = 'rgb(' + (51 * i) + ',' + (255 - 51 * i) + ',255';
+            for (var j = 0; j < i * 6; j++) {
+                ctx.rotate(Math.PI * 2 / (i * 6));
+                ctx.beginPath();
+                ctx.arc(0 , i * 12.5 , 5 , 0 , Math.PI * 2 , true);
+                ctx.fill();
+            }
+            ctx.restore();
+        }
+        ctx.restore();
+    }
+    function draw3() {
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext('2d');
+        ctx.save();
+        ctx.clearRect(0 , 0 , canvas.width , canvas.height);
+        ctx.fillRect(0 , 0 , canvas.width , canvas.height);
+        ctx.strokeStyle = "#fc0";
+        ctx.lineWidth = 1.5;
+        ctx.save();
+        ctx.translate(50 , 50);
+        drawSpirograph(ctx , 22 , 6 , 5);
+        ctx.translate(100 , 0);
+        ctx.scale(.75 , .75);
+        drawSpirograph(ctx , 22 , 6 , 5);
+        ctx.translate(133.333 , 0);
+        ctx.scale(.75 , .75);
+        drawSpirograph(ctx , 22 , 6 , 5);
+        ctx.restore();
+        ctx.strokeStyle = "#0cf";
+        ctx.save();
+        ctx.translate(50 , 150);
+        ctx.scale(1 , .75);
+        drawSpirograph(ctx , 22 , 6 , 5);
+        ctx.translate(100 , 0);
+        ctx.scale(1 , .75);
+        drawSpirograph(ctx , 22 , 6 , 5);
+        ctx.translate(100 , 0);
+        ctx.scale(1 , .75);
+        drawSpirograph(ctx , 22 , 6 , 5);
+        ctx.restore();
+        ctx.strokeStyle = '#cf0';
+        ctx.save();
+        ctx.translate(50 , 250);
+        ctx.scale(.75 , 1);
+        drawSpirograph(ctx , 22 , 6 , 5);
+        ctx.translate(100 , 0);
+        ctx.scale(.75 , 1);
+        drawSpirograph(ctx , 22 , 6 , 5);
+        ctx.translate(150 , 0);
+        ctx.scale(.75 , 1);
+        drawSpirograph(ctx , 22 , 6 , 5);
+        ctx.restore();
+    }
+</script>
+</body>
+</html>
