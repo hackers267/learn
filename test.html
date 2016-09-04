@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas-test</title>
+</head>
+<body>
+<canvas id="canvas" width="300" height="300"></canvas>
+<script type="text/javascript">
+    function polygon(n) {
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        var arc = Math.PI / 180 * (180 - 180 * (n - 2) / n);
+        ctx.clearRect(0 , 0 , canvas.width , canvas.height);
+        ctx.restore();
+        ctx.save();
+        ctx.fillStyle = "red";
+        ctx.strokeStyle = "yellow";
+        ctx.beginPath();
+        ctx.translate(50 , 50);
+        ctx.moveTo(0 , 0);
+        for (var i = 0; i < n; i++) {
+            console.log(i);
+            ctx.lineTo(50 , 0);
+            ctx.translate(50 , 0);
+            ctx.rotate(arc);
+        }
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+    }
+    polygon(8);
+    polygon(5);
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+#less
+###变量
+```
+@a:12px;
+.box{font-size:@a;}
+```
+输出结果为
+```
+.box{font-size:12px}
+```
+###混合
+```
+.border(@width:1px){border:@width solid #ccc;}
+.box{.border(2px);}
+```
+输出结果为
+```
+.box{border:2px solid #ccc;}
+```
+`可用于浏览器的兼容性问题`
+###匹配模式
+```
+.pos(r){position:relative;}
+.pos(a){position:absolute;}
+.pos(f){position:f;}
+.pos(_@){top:0;left:0;}
+.box{.pos(a)}
+```
+输出结果为
+```
+.box{position:absolute;top:0;left:0;}
+```
+###运算
+```
+@size:6.4%;
+.bg1{padding-bottom:320/@size;}
+```
+输出结果为:
+```
+.bg1{padding-bottom:50%;}
+```
+###嵌套
+```
+.list{
+    padding:0;
+    .item{margin:0;}
+    a{float:left;}
+    &:hover{float:right;}
+}
+```
+输出结果为：
+```
+.list{padding:0};
+.list .item{margin:0;}
+.list a{float:left;}
+.list a:hover{float:right;}
+```
+###@arguments;
+###避免编译
+```
+.test{width:~"calc(300px-30px)";
+```
