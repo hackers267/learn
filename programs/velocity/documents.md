@@ -74,11 +74,25 @@ $element.velocity({opacity:1},{duration:1000});
 easing包括的内容有：
 
 1. [ jQuery UI's easings](http://easings.net/zh-cn)中的` back`,`bounce`和`elastic`之外的属性。
+    ```
+    $element.velocity({width:50},"easeInSine");
+    ```
 2. `ease`,`ease-in`,`ease-out`and`ease-in-out`;
+    ```
+    $element.velocity({width:50},"ease");
+    ```
 3. 贝塞尔曲线([CSS3's bezier curves](http://cubic-bezier.com/));
+    ```
+    $element.velocity({width:50},[0.17,0.67,0.83,0.67]);
+    ```
 4. 弹簧式曲线([Spring Physics Tester](http://codepen.io/julianshapiro/pen/hyeDg));
+    ```
+    $element.velocity({width:50},[250,15]);
+    ```
 5. 步进式。([step](http://codepen.io/julianshapiro/pen/ylvuh))
- 
+    ```
+    $element.velocity({width:50},[8]);
+    ```
 <h3 id="queue">queue</h3>
 <h3 id="begin">begin</h3>
 <h3 id="complete">complete</h3>
