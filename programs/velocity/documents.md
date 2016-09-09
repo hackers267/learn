@@ -114,8 +114,9 @@ easing包括的内容有：
     };
     ```
 <h3 id="queue">queue</h3>
-队列：可以把`queue`设置为`false`来立即运行当前动画。
-
+    - 队列：可以把`queue`设置为`false`来立即运行当前动画。
+    更多关于队列的请参考：[What are queues in jQuery?](http://stackoverflow.com/questions/1058158/can-somebody-explain-jquery-queue-to-me)
+    
     ```
     /*Trigger the first animation(width)*/
     $element.velocity({width:"50px"},{duration:3000});  //Runs for 3s
