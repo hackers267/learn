@@ -93,7 +93,38 @@ easing包括的内容有：
     ```
     $element.velocity({width:50},[8]);
     ```
+6. 复用
+    ```
+    $element.evlocity({
+        borderBottomWidth:["2px","spring"],     //Uses "spring"
+        width:["100px",[250,15]],       //Uses custom spring physics
+        height: "100px"     //Defaults to easeInSine,the call's default easing
+    },{
+        easing:"easeInSine"     //Default easing
+    });
+    ```
+7. 回调函数
+    用`$.Velocity.Easings`对象的方法调用。
+    + p:动画完成的百分比。
+    + opts(可选):Vecocity触发时调用的对象。
+    + tweenDelta(可选):动画完成与开始的不同。
+    ```
+    $.Velocity.Esings.myCustomEasing=function(p,opts,tweenDelta){
+        return 0.5-Math.cos(p*Math.PI)/2;
+    };
+    ```
 <h3 id="queue">queue</h3>
+队列：可以把`queue`设置为`false`来立即运行当前动画。
+
+    ```
+    /*Trigger the first animation(width)*/
+    $element.velocity({width:"50px"},{duration:3000});  //Runs for 3s
+    setTimeout(function(){
+    /*function call Will run in parallel starting the 1500ms mark.*/
+    $element.velocity({height:"50px"},{queue:false,duration:1500});
+    },1500);
+    ```
+
 <h3 id="begin">begin</h3>
 <h3 id="complete">complete</h3>
 <h3 id="progress">progress</h3>
