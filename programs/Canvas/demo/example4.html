@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>创建imageDate</title>
+</head>
+<body>
+<canvas id="canvas" style="display:block;margin: 0 auto;border: 1px solid #000;">
+    您的浏览器不支持CANVAS。
+</canvas>
+<script type="text/javascript">
+    var canvas=document.getElementById("canvas");
+    var cxt=canvas.getContext('2d');
+    window.onload=function () {
+        canvas.width=800;
+        canvas.height=800;
+        var imageData=cxt.createImageData(canvas.width,canvas.height);
+        var pixelDate=imageData.data;
+        for(var i = 0 ; i < canvas.width ; i++ )
+        {
+            for(var j = 0 ; j < canvas.height ; j++ )
+            {
+                var p=i*canvas.width+j;
+                pixelDate[4*p]=parseInt(Math.pow(Math.cos(Math.atan2(j-400,i-400)/2),2)*255);
+                pixelDate[4*p+1]=parseInt(Math.pow(Math.cos(Math.atan2(j-400,i-400)/2-2*Math.acos(-1)/3),2)*255);
+                pixelDate[4*p+2]=parseInt(Math.pow(Math.cos(Math.atan2(j-400,i-400)/2+2*Math.acos(-1)/3),2)*255);
+                pixelDate[4*p+3]=255;
+            };
+        }
+        cxt.putImageData(imageData,0,0,0,0,canvas.width,canvas.height);
+    }
+</script>
+</body>
+</html>

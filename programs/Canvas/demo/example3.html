@@ -2,9 +2,165 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Canvas滤镜</title>
+    <style>
+        .container{ margin:0 auto;}
+        .container:after{ content:''; clear:both; display:block; height:0; overflow:hidden;}
+        canvas{ float:left; margin:10px; }
+        #canvasb{ float:right;}
+        .button{ clear:both; }
+    </style>
 </head>
 <body>
-
+<div class="container">
+    <canvas id="canvasa"></canvas>
+    <canvas id="canvasb"></canvas>
+</div>
+<div class="button">
+    <button onclick="greyEffect()">greyEffect</button>
+    <button onclick="blackEffect()">blackEffect</button>
+    <button onclick="reverse()">reverse</button>
+    <button onclick="blurs()">blur</button>
+    <button onclick="mousec()">mousec</button>
+</div>
 </body>
+<script type="text/javascript">
+    var canvasa = document.getElementById("canvasa");
+    var cxta = canvasa.getContext("2d");
+    var canvasb = document.getElementById("canvasb");
+    var cxtb = canvasb.getContext("2d");
+    canvasa.width = 800;
+    canvasa.height = 600;
+    canvasb.width = 800;
+    canvasb.height = 600;
+    var image = new Image();
+    image.src = "pic.jpg";
+    image.onload = function () {
+        cxta.drawImage(image , 0 , 0 , canvasa.width , canvasa.height);
+    };
+    function blackEffect() {
+        var dataa = cxta.getImageData(0 , 0 , canvasa.width , canvasa.height);
+        console.log(dataa);
+        var datab = dataa;
+        for (var i = 0; i < dataa.data.length; i = i + 4) {
+            var r =dataa.data[i];
+            var g =dataa.data[i + 1];
+            var b =dataa.data[i + 2];
+            var grey = r * .3 + g * .59 + b * .11;
+            if (grey > 128) {
+                grey = 255
+            }
+            else {
+                grey = 0
+            }
+            ;
+            datab.data[i] = grey;
+            datab.data[i + 1] = grey;
+            datab.data[i + 2] = grey;
+        }
+        cxtb.putImageData(dataa , 0 , 0);
+    }
+    function greyEffect() {
+        var dataa = cxta.getImageData(0 , 0 , canvasa.width , canvasa.height);
+        console.log(dataa);
+        var datab = dataa;
+        for (var i = 0; i < dataa.data.length; i = i + 4) {
+            var r =dataa.data[i];
+            var g =dataa.data[i + 1];
+            var b =dataa.data[i + 2];
+            var grey = r * .3 + g * .59 + b * .11;
+            datab.data[i] = grey;
+            datab.data[i + 1] = grey;
+            datab.data[i + 2] = grey;
+        }
+        cxtb.putImageData(datab , 0 , 0);
+    }
+    function reverse() {
+        var dataa = cxta.getImageData(0 , 0 , canvasa.width , canvasa.height);
+        console.log(dataa);
+        var datab = dataa;
+        for (var i = 0; i < dataa.data.length; i = i + 4) {
+            var r =255-dataa.data[i];
+            var g =255-dataa.data[i + 1];
+            var b =255-dataa.data[i + 2];
+            var grey = r * .3 + g * .59 + b * .11;
+            datab.data[i] = r;
+            datab.data[i + 1] = g;
+            datab.data[i + 2] = b;
+        }
+        cxtb.putImageData(datab , 0 , 0);
+    }
+    function blurs() {
+        var dataa = cxta.getImageData(0 , 0 , canvasa.width , canvasa.height);
+        var datab=dataa;
+        var blurR=1;
+        var totalnum=(2*blurR+1)*(2*blurR+1);
+        for(var i = blurR ; i < canvasb.height-blurR ; i++ )
+        {
+            for(var j = blurR ; j < canvasb.width-blurR ; j++ )
+            {
+                var totalr=0,totalg=0,totalb=0;
+                for(var dx = -blurR ; dx <= blurR ; dx++ )
+                {
+                    for(var dy = -blurR ; dy <= blurR ; dy++ )
+                    {
+                        var x=i+dx;
+                        var y=j+dy;
+                        var p=x*canvasa.width + y;
+                        totalr+=dataa.data[4*p];
+                        totalg+=dataa.data[4*p+1];
+                        totalb+=dataa.data[4*p+2];
+                    }
+                }
+                var p=i*canvasa.width+j;
+                datab.data[p*4]=totalr/totalnum;
+                datab.data[p*4+1]=totalg/totalnum;
+                datab.data[p*4+2]=totalb/totalnum;
+            };
+        }
+        cxtb.putImageData(datab , 0 , 0);
+    }
+    function mousec() {
+        var dataa = cxta.getImageData(0 , 0 , canvasa.width , canvasa.height);
+        var datab=dataa;
+        var size=12;
+        var totalnum=size*size;
+        for(var i = 1 ; i < canvasb.height ; i+=size )
+        {
+            for(var j = 1 ; j < canvasb.width; j+=size )
+            {
+                var totalr=0,totalg=0,totalb=0;
+                for(var dx =0 ; dx <= size ; dx++ )
+                {
+                    for(var dy =0 ; dy <= size ; dy++ )
+                    {
+                        var x=i+dx;
+                        var y=j+dy;
+                        var p=x*canvasa.width + y;
+                        totalr+=dataa.data[4*p];
+                        totalg+=dataa.data[4*p+1];
+                        totalb+=dataa.data[4*p+2];
+                    }
+                }
+                var p=i*canvasa.width+j;
+                var resr=totalr/totalnum;
+                var resg=totalg/totalnum;
+                var resb=totalb/totalnum;
+                for(var dx = 0 ; dx < size ; dx++ )
+                {
+                    for(var dy = 0 ; dy < size ; dy++ )
+                    {
+                        var x=i+dx;
+                        var y=j+dy;
+                        var p=x*canvasb.width+y;
+                        datab.data[p*4]=resr;
+                        datab.data[p*4+1]=resg;
+                        datab.data[p*4+2]=resb;
+                    };
+                }
+            }
+        }
+        cxtb.putImageData(datab , 0 , 0);
+    }
+</script>
 </html>
