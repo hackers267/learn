@@ -1,0 +1,20 @@
+*{
+    padding:0;
+    margin:0;
+    box-sizing:border-box;
+    }
+ul{list-style:none;}
+li{list-style:none;}
+html,body{ height:100%;}
+body{font:14px "Lucida Grande",Helvetica,Arial,sans-serif;background:#000; color:#FFF; text-align:center;}
+header,.left,.right{ position:absolute;}
+header{ left:10px; top:10px; right:10px; height:150px; border:1px solid #FFF;}
+header h1{ font-size:40px; height:60px; line-height:60px;}
+.left{ left:10px; width:200px; bottom:10px; border:1px solid #FFF; top:170px;}
+.right{ left:220px; right:10px; top:170px; border:1px solid #FFF; bottom:10px;}
+.type:after{content:''; overflow:hidden; height:0; clear:both; display:block;*zoom:1;*display:inline;}
+.type{ width:152px; margin:10px auto;border:1px solid #FFF;border-radius:5px;}
+.type li{ float:left; width:75px; height:30px; line-height:30px; text-align:center; cursor:pointer;}
+.type .selected{ background-color:#FFF; color:#000;}
+#list .selected{ color:#F00; background-color:#00F;}
+#list li{ cursor:pointer; margin:5px 0 5px 5px; list-style:none;}
