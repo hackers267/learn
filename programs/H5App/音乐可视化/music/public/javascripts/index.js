@@ -5,8 +5,9 @@ function $(s) {
     return document.querySelectorAll(s);
 }
 var lis = $("#list li");
+var local_lis = $("#local-list li");
 var source = null;
-var size = 32;
+var size = 128;
 var box = $("#box")[0];
 var height , width;
 var canvas = document.createElement("canvas");
@@ -45,6 +46,19 @@ function getDots() {
     }
 }
 var line;
+$("#upload")[0].onclick=function () {
+    console.log(1);
+    $("#local-file")[0].click();
+};
+$("#local-file")[0].onchange=function (e) {
+    var file=this.files[0];
+    var fr=new FileReader();
+    console.log(fr.readAsArrayBuffer(file),file);
+    fr.onload=function (e) {
+        console.log(e.target.result);
+        mv.plays(e.target.result);
+    };
+};
 function resize() {
     height = box.clientHeight;
     width = box.clientWidth;

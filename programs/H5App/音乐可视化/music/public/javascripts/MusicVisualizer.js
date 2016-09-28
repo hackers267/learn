@@ -51,6 +51,20 @@ MusicVisualizer.prototype.play = function (url) {
         })
     })
 };
+MusicVisualizer.prototype.plays = function (arraybuffer) {
+    var n = ++this.count;
+    var self = this;
+    this.source && this.stop();
+        if (n != self.count) return;
+        self.decode(arraybuffer , function (buffer) {
+            if (n != self.count) return;
+            var bs = MusicVisualizer.ac.createBufferSource();
+            bs.connect(self.analyser);
+            bs.buffer = buffer;
+            bs[bs.start ? "start" : "noteOn"](0);
+            self.source = bs;
+        })
+};
 MusicVisualizer.prototype.stop = function () {
     this.source[this.source.stop ? "stop" : "noteOff"](0);
 };

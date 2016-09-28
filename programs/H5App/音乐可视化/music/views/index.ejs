@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-  <header>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+</head>
+<body>
+<header>
     <h1><%= title %></h1>
-      <ul class="type" id="type">
-          <li data-type="dot">dot</li>
-          <li data-type="column" class="selected">column</li>
-      </ul>
-      <p>Volume<input id="volume" type="range" min="0" max="100" value="60"> </p>
-  </header>
-  <div class="left">
+    <ul class="type" id="type">
+        <li data-type="dot">dot</li>
+        <li data-type="column" class="selected">column</li>
+    </ul>
+    <p>Volume<input id="volume" type="range" min="0" max="100" value="60"></p>
+</header>
+<div class="left">
+    <button id="upload" class="upload-button">打开本地文件</button>
+    <input type="file" name="local-file" id="local-file" class="upload-button">
+    <div class="list-title">网络文件</div>
     <ul id="list">
         <% music.forEach(function (name) { %>
-            <li title="<%= name %>"><%= name %></li>
+        <li title="<%= name %>"><%= name %></li>
         <% }) %>
     </ul>
-  </div>
-  <div class="right" id="box"></div>
-  <script src="/javascripts/MusicVisualizer.js"></script>
-  <script src="/javascripts/index.js"></script>
-  </body>
+    <div class="list-title">本地文件</div>
+    <ul id="local-list">
+    </ul>
+</div>
+<div class="right" id="box"></div>
+<script src="/javascripts/MusicVisualizer.js"></script>
+<script src="/javascripts/index.js"></script>
+</body>
 </html>
